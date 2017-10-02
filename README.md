@@ -1,2 +1,2 @@
-# AirMap-Protos
-A collection of public AirMap Protobuf definitions.
+# AirMap Interfaces
+A collection of public AirMap Interface definitions.
