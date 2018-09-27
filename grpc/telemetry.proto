@@ -5,12 +5,13 @@ syntax = "proto3";
 import "extensions.proto";
 import "google/protobuf/timestamp.proto";
 import "measurements.proto";
+import "ids.proto";
 
 package airmap;
 
-// TelemetryService exposes services that enable the reporting of telematic data.
-service TelemetryService {
-  rpc ConnectUpdatesStream(stream Telemetry.Update.FromClient) returns (stream Telemetry.Update.FromService);
+// TelemetryProvider exposes a service that enables the reporting of telematic data.
+service TelemetryProvider {
+  rpc ConnectUpdates(stream Telemetry.Update.FromClient) returns (stream Telemetry.Update.FromService);
 }
 
 // Telemetry bundles up types used for reporting telematic data.
@@ -44,8 +45,9 @@ message Telemetry {
   message Update {
     // FromClient models a batch of reports observed and sent to a telemetry service.
     message FromClient {
-      google.protobuf.Timestamp submitted  = 1;  // The timestamp of when the update was submitted by the client.
-      repeated Report reports              = 2;
+      FlightId flight                      = 1;  // The identifier of the flight for which the update is for.
+      google.protobuf.Timestamp submitted  = 2;  // The timestamp of when the update was submitted by the client.
+      repeated Report reports              = 3;
     }
     // FromService models communication back to a telemetry client.
     message FromService {

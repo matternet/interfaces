@@ -10,12 +10,13 @@ import "measurements.proto";
 
 package airmap;
 
-// TrafficService exposes services that enable the exchange of traffic updates with a traffic service.
-service TrafficService {
-  rpc RegisterSource(stream Traffic.Update.FromSource) returns (stream Traffic.Update.ToSource);
+// TrafficProvider expose a service that enables the exchange of traffic updates with a traffic service.
+service TrafficProvider {
+  // RegisterProvider registers a provider of traffic updates.
+  rpc RegisterProvider(stream Traffic.Update.FromProvider) returns (stream Traffic.Update.ToProvider);
 }
 
-// Traffic bundles all types used in the exchange of traffic observations among traffic sources, collectors, and processors.
+// Traffic bundles all types used in the exchange of traffic observations among traffic providers, collectors, and processors.
 message Traffic {
   // Observation describes an individual observation of an (aerial) vehicle.
   message Observation {
@@ -38,7 +39,7 @@ message Traffic {
       PrimaryRadar primary_radar     = 2;  // Marks a primary radar sensor.
       SecondaryRadar secondary_radar = 3;  // Marks a secondary radar sensor.
       Adsb adsb                      = 4;  // Marks an ADS-B sensor.
-      RadioFrequency radioFrequency  = 5;  // Marks a Radio Frequency (RF) sensor.
+      RadioFrequency radio_frequency = 5;  // Marks a Radio Frequency (RF) sensor.
     }
     
     // Fused models multiple fused data sensors.
@@ -58,7 +59,7 @@ message Traffic {
 
     // Adsb models an ADS-B sensor.
     message Adsb {
-      // Reserved for future extensibility  
+      // Reserved for future extensibility
     }
 
     // RadioFrequency models a Radio Frequency (RF) sensor.
@@ -71,17 +72,17 @@ message Traffic {
   message Identity {
     // details is a discriminated union of all identity types.
     oneof details {
-      SourceId sourceId          = 1;
-      TrackId trackId            = 2;
+      ProviderId provider_id     = 1;
+      TrackId track_id           = 2;
       Callsign callsign          = 3;
       Registration registration  = 4;
       Icao icao                  = 5;
-      Manufacturer manufacturer  = 6; 
+      Manufacturer manufacturer  = 6;
       NetworkInterface network   = 7;
     }
 
-    // SourceId models the unique identifier of a source of traffic observations.
-    message SourceId {
+    // ProviderId models the unique identifier of a provider of traffic observations.
+    message ProviderId {
       string as_string  = 1;
     }
 
@@ -118,9 +119,9 @@ message Traffic {
 
     // Manufacturer identifies a make, model, and serial number of an aircraft or sensor.
     message Manufacturer {
-      string make          = 1 [(nullable) = true];  // The name of the manufacturer of the vehicle.
-      string model         = 2 [(nullable) = true];  // The name of the model of the vehicle.
-      string serial_number = 3 [(nullable) = true];  // The serial number of the vehicle.
+      string make          = 1 [(nullable) = true];  // The name of the manufacturer.
+      string model         = 2 [(nullable) = true];  // The name of the model.
+      string serial_number = 3 [(nullable) = true];  // The serial number.
     }
 
     // NetworkInterface identifies a vehicle by its network interfaces.
@@ -136,19 +137,19 @@ message Traffic {
 
   // Update bundles types used in the exchange of traffic observations.
   message Update {
-    // FromSource models a batch of data observed by a traffic source and sent to a traffic collector.
-    message FromSource {
-      repeated Traffic.Observation observations  = 1;  // Observations as recorded by a source.
-      google.protobuf.Timestamp submitted        = 2;  // The time when the update was submitted by the source.
+    // FromProvider models a batch of data observed by a traffic provider and sent to a traffic collector.
+    message FromProvider {
+      repeated Traffic.Observation observations  = 1;  // Observations as recorded by a provider.
+      google.protobuf.Timestamp submitted        = 2;  // The time when the update was submitted by the provider.
       google.protobuf.Timestamp received         = 3  [(nullable) = true];  // The time when the update was received by the traffic collector.
     }
 
-    // ToSource models information communicated back to a traffic source.
-    message ToSource {
-      // Ack describes an acknowledgement of observations received from a traffic source.
+    // ToProvider models information communicated back to a traffic provider.
+    message ToProvider {
+      // Ack describes an acknowledgement of observations received from a traffic provider.
       message Ack {
         uint64 count                         = 1;  // Number of messages received.
-        google.protobuf.Timestamp submitted  = 2;  // The time when the message was sent to a traffic source.
+        google.protobuf.Timestamp submitted  = 2;  // The time when the message was sent to a traffic provider.
       }
       Ack ack = 1;  // Ack for received update.
     }
