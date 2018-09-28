@@ -9,6 +9,8 @@ import "ids.proto";
 
 package airmap;
 
+option swift_prefix="AirMap";
+
 // TelemetryProvider exposes a service that enables the reporting of telematic data.
 service TelemetryProvider {
   rpc ConnectUpdates(stream Telemetry.Update.FromClient) returns (stream Telemetry.Update.FromService);

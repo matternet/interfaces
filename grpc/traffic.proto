@@ -10,6 +10,8 @@ import "measurements.proto";
 
 package airmap;
 
+option swift_prefix="AirMap";
+
 // TrafficProvider expose a service that enables the exchange of traffic updates with a traffic service.
 service TrafficProvider {
   // RegisterProvider registers a provider of traffic updates.

@@ -7,6 +7,8 @@ import "units.proto";
 
 package airmap;
 
+option swift_prefix="AirMap";
+
 // Position models a spatial location.
 message Position {
   Coordinate2D coordinate = 1;  // The lat/lng coordinate of the position

@@ -4,6 +4,8 @@ syntax = "proto3";
 
 package airmap;
 
+option swift_prefix="AirMap";
+
 // FlightId models the unique id of a flight in the context of AirMap.
 message FlightId {
   string as_string = 1;  // The textual representation of the id.
