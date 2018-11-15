@@ -1,0 +1,9 @@
+{
+  "name": "interfaces-examples-nodejs",
+  "version": "0.1.0",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.1.0",
+    "google-proto-files": "^0.18.0",
+    "grpc": "^1.0.0"
+  }
+}
