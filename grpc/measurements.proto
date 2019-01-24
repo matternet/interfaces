@@ -58,6 +58,7 @@ message Course {
 }
 
 // Velocity models a velocity as XYZ vectors in the NED (north-east-down) coordinate space.
+// To convert from ENU (east-north-up), set X, Y, Z from N, E, -U values respectively.
 message Velocity {
   MetersPerSecond x = 1;  // The velocity along the X axis.
   MetersPerSecond y = 2;  // The velocity along the Y axis.
