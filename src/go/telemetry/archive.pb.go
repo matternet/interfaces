@@ -12,6 +12,8 @@ import (
 	duration "github.com/golang/protobuf/ptypes/duration"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -179,6 +181,14 @@ func (x *archiveQueryOperationReportsClient) Recv() (*Report, error) {
 // ArchiveServer is the server API for Archive service.
 type ArchiveServer interface {
 	QueryOperationReports(*OperationQuery, Archive_QueryOperationReportsServer) error
+}
+
+// UnimplementedArchiveServer can be embedded to have forward compatible implementations.
+type UnimplementedArchiveServer struct {
+}
+
+func (*UnimplementedArchiveServer) QueryOperationReports(req *OperationQuery, srv Archive_QueryOperationReportsServer) error {
+	return status.Errorf(codes.Unimplemented, "method QueryOperationReports not implemented")
 }
 
 func RegisterArchiveServer(s *grpc.Server, srv ArchiveServer) {

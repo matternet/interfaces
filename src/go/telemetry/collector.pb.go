@@ -10,6 +10,8 @@ import (
 	system "github.com/airmap/interfaces/src/go/system"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -307,6 +309,14 @@ func (x *collectorConnectProviderClient) Recv() (*Update_ToProvider, error) {
 type CollectorServer interface {
 	// ConnectProvider connects a stream of updates from a  provider to a collector
 	ConnectProvider(Collector_ConnectProviderServer) error
+}
+
+// UnimplementedCollectorServer can be embedded to have forward compatible implementations.
+type UnimplementedCollectorServer struct {
+}
+
+func (*UnimplementedCollectorServer) ConnectProvider(srv Collector_ConnectProviderServer) error {
+	return status.Errorf(codes.Unimplemented, "method ConnectProvider not implemented")
 }
 
 func RegisterCollectorServer(s *grpc.Server, srv CollectorServer) {
