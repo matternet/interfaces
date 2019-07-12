@@ -19,37 +19,42 @@ service Collector {
   rpc ConnectProcessor(stream Update.FromProcessor) returns (stream Update.ToProcessor);
 }
 
+// ConnectProcessorParameters models configuration parameters for processor streams
+message ConnectProcessorParameters {
+  bool enable_projection = 1;  // Tracks will be forward-projected at a constant rate.
+}
+
 // Update bundles types used in the exchange of tracks.
 message Update {
-
   // FromProvider wraps messages being sent by a provider to a traffic collector.
   message FromProvider {
     oneof details {
-      system.Status status  = 1;  // Provider operational status.
-      Track.Batch batch     = 2;  // Batch of updates from a track provider.
+      system.Status status = 1;  // Provider operational status.
+      Track.Batch batch    = 2;  // Batch of updates from a track provider.
     }
   }
 
   // ToProvider wraps messages being sent from a collector back to a provider.
   message ToProvider {
     oneof details {
-      system.Status status  = 1;  // Collector operational status.
-      system.Ack ack        = 2;  // Acknowledgement of received updates.
+      system.Status status = 1;  // Collector operational status.
+      system.Ack ack       = 2;  // Acknowledgement of received updates.
     }
   }
 
   // ToProcessor wraps messages being sent by a collector to a processor.
   message ToProcessor {
     oneof details {
-      system.Status status  = 1;  // Collector operational status.
-      Track.Batch batch     = 2;  // Batch of updates from a track collector.
+      system.Status status = 1;  // Collector operational status.
+      Track.Batch batch    = 2;  // Batch of updates from a track collector.
     }
   }
 
   message FromProcessor {
     oneof details {
-      system.Status status  = 1;  // Processor operational status.
-      system.Ack ack        = 2;  // Acknowledgement of received updates.
+      system.Status status              = 1;  // Processor operational status.
+      system.Ack ack                    = 2;  // Acknowledgement of received updates.
+      ConnectProcessorParameters params = 3;  // Parameters used to customize the stream to the processor.
     }
   }
 }
