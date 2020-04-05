@@ -21,6 +21,9 @@ message Identity {
     Icao icao                  = 6;
     Manufacturer manufacturer  = 7;
     NetworkInterface network   = 8;
+    IMEI imei                  = 9;
+    IMSI imsi                  = 10;
+    Tracker tracker            = 11;
   }
 
   // ProviderId models the unique identifier of a provider of tracks.
@@ -46,7 +49,7 @@ message Identity {
   // Operation models an operation.
   message Operation {
     ids.Operation operation_id   = 1;  // The operation identifier.
-    ids.USP service_provider_id  = 2;  // The UTM Service Provider that issued the identifier.
+    ids.USS service_provider_id  = 2;  // The UTM Service Supplier that issued the identifier.
   }
 
   // Icao bundles up information that describes an aircraft in the ICAO context.
@@ -80,5 +83,20 @@ message Identity {
     message MACAddress {
       string as_string  = 1 [(grpc.format) = "%02X:%02X:%02X:%02X:%02X:%02X"];
     }
+  }
+
+  // IMEI models the International Mobile Equipment Identity.
+  message IMEI {
+    string as_string = 1 [(grpc.format) = "%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c"];
+  }
+
+  // IMSI models the International Mobile Subscriber Identity.
+  message IMSI {
+    string as_string = 1 [(grpc.format) = "%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c"];
+  }
+
+  // Tracker models a tracker.
+  message Tracker {
+    ids.Tracker tracker_id = 1;  // The tracker identifier.
   }
 }

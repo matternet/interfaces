@@ -20,6 +20,46 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+// Operator models the unique id of an operator.
+type Operator struct {
+	AsString             string   `protobuf:"bytes,1,opt,name=as_string,json=asString,proto3" json:"as_string,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Operator) Reset()         { *m = Operator{} }
+func (m *Operator) String() string { return proto.CompactTextString(m) }
+func (*Operator) ProtoMessage()    {}
+func (*Operator) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9bb53c9ac7a7c1b5, []int{0}
+}
+
+func (m *Operator) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Operator.Unmarshal(m, b)
+}
+func (m *Operator) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Operator.Marshal(b, m, deterministic)
+}
+func (m *Operator) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Operator.Merge(m, src)
+}
+func (m *Operator) XXX_Size() int {
+	return xxx_messageInfo_Operator.Size(m)
+}
+func (m *Operator) XXX_DiscardUnknown() {
+	xxx_messageInfo_Operator.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Operator proto.InternalMessageInfo
+
+func (m *Operator) GetAsString() string {
+	if m != nil {
+		return m.AsString
+	}
+	return ""
+}
+
 // Operation models the unique id of an operation.
 type Operation struct {
 	AsString             string   `protobuf:"bytes,1,opt,name=as_string,json=asString,proto3" json:"as_string,omitempty"`
@@ -32,7 +72,7 @@ func (m *Operation) Reset()         { *m = Operation{} }
 func (m *Operation) String() string { return proto.CompactTextString(m) }
 func (*Operation) ProtoMessage()    {}
 func (*Operation) Descriptor() ([]byte, []int) {
-	return fileDescriptor_9bb53c9ac7a7c1b5, []int{0}
+	return fileDescriptor_9bb53c9ac7a7c1b5, []int{1}
 }
 
 func (m *Operation) XXX_Unmarshal(b []byte) error {
@@ -60,40 +100,80 @@ func (m *Operation) GetAsString() string {
 	return ""
 }
 
-// USP models the unique id of a UTM Service Provider (USP)
-type USP struct {
+// USS models the unique id of a UTM Service Supplier (USS)
+type USS struct {
 	AsString             string   `protobuf:"bytes,1,opt,name=as_string,json=asString,proto3" json:"as_string,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *USP) Reset()         { *m = USP{} }
-func (m *USP) String() string { return proto.CompactTextString(m) }
-func (*USP) ProtoMessage()    {}
-func (*USP) Descriptor() ([]byte, []int) {
-	return fileDescriptor_9bb53c9ac7a7c1b5, []int{1}
+func (m *USS) Reset()         { *m = USS{} }
+func (m *USS) String() string { return proto.CompactTextString(m) }
+func (*USS) ProtoMessage()    {}
+func (*USS) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9bb53c9ac7a7c1b5, []int{2}
 }
 
-func (m *USP) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_USP.Unmarshal(m, b)
+func (m *USS) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_USS.Unmarshal(m, b)
 }
-func (m *USP) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_USP.Marshal(b, m, deterministic)
+func (m *USS) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_USS.Marshal(b, m, deterministic)
 }
-func (m *USP) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_USP.Merge(m, src)
+func (m *USS) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_USS.Merge(m, src)
 }
-func (m *USP) XXX_Size() int {
-	return xxx_messageInfo_USP.Size(m)
+func (m *USS) XXX_Size() int {
+	return xxx_messageInfo_USS.Size(m)
 }
-func (m *USP) XXX_DiscardUnknown() {
-	xxx_messageInfo_USP.DiscardUnknown(m)
+func (m *USS) XXX_DiscardUnknown() {
+	xxx_messageInfo_USS.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_USP proto.InternalMessageInfo
+var xxx_messageInfo_USS proto.InternalMessageInfo
 
-func (m *USP) GetAsString() string {
+func (m *USS) GetAsString() string {
+	if m != nil {
+		return m.AsString
+	}
+	return ""
+}
+
+// Tracker models the unique id of a tracker.
+type Tracker struct {
+	AsString             string   `protobuf:"bytes,1,opt,name=as_string,json=asString,proto3" json:"as_string,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Tracker) Reset()         { *m = Tracker{} }
+func (m *Tracker) String() string { return proto.CompactTextString(m) }
+func (*Tracker) ProtoMessage()    {}
+func (*Tracker) Descriptor() ([]byte, []int) {
+	return fileDescriptor_9bb53c9ac7a7c1b5, []int{3}
+}
+
+func (m *Tracker) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Tracker.Unmarshal(m, b)
+}
+func (m *Tracker) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Tracker.Marshal(b, m, deterministic)
+}
+func (m *Tracker) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Tracker.Merge(m, src)
+}
+func (m *Tracker) XXX_Size() int {
+	return xxx_messageInfo_Tracker.Size(m)
+}
+func (m *Tracker) XXX_DiscardUnknown() {
+	xxx_messageInfo_Tracker.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Tracker proto.InternalMessageInfo
+
+func (m *Tracker) GetAsString() string {
 	if m != nil {
 		return m.AsString
 	}
@@ -101,21 +181,24 @@ func (m *USP) GetAsString() string {
 }
 
 func init() {
+	proto.RegisterType((*Operator)(nil), "ids.Operator")
 	proto.RegisterType((*Operation)(nil), "ids.Operation")
-	proto.RegisterType((*USP)(nil), "ids.USP")
+	proto.RegisterType((*USS)(nil), "ids.USS")
+	proto.RegisterType((*Tracker)(nil), "ids.Tracker")
 }
 
 func init() { proto.RegisterFile("ids/ids.proto", fileDescriptor_9bb53c9ac7a7c1b5) }
 
 var fileDescriptor_9bb53c9ac7a7c1b5 = []byte{
-	// 139 bytes of a gzipped FileDescriptorProto
+	// 159 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0xcd, 0x4c, 0x29, 0xd6,
-	0xcf, 0x4c, 0x29, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0xce, 0x4c, 0x29, 0x56, 0xd2,
-	0xe0, 0xe2, 0xf4, 0x2f, 0x48, 0x2d, 0x4a, 0x2c, 0xc9, 0xcc, 0xcf, 0x13, 0x92, 0xe6, 0xe2, 0x4c,
-	0x2c, 0x8e, 0x2f, 0x2e, 0x29, 0xca, 0xcc, 0x4b, 0x97, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0xe2,
-	0x48, 0x2c, 0x0e, 0x06, 0xf3, 0x95, 0x94, 0xb8, 0x98, 0x43, 0x83, 0x03, 0xf0, 0xaa, 0x71, 0xd2,
-	0x8c, 0x52, 0x4f, 0xcf, 0x2c, 0xc9, 0x28, 0x4d, 0xd2, 0x4b, 0xce, 0xcf, 0xd5, 0x4f, 0xcc, 0x2c,
-	0xca, 0x4d, 0x2c, 0xd0, 0xcf, 0xcc, 0x2b, 0x49, 0x2d, 0x4a, 0x4b, 0x4c, 0x4e, 0x2d, 0xd6, 0x2f,
-	0x2e, 0x4a, 0xd6, 0x4f, 0xcf, 0x07, 0xb9, 0x21, 0x89, 0x0d, 0xec, 0x08, 0x63, 0x40, 0x00, 0x00,
-	0x00, 0xff, 0xff, 0x12, 0xd9, 0xc7, 0x0e, 0x95, 0x00, 0x00, 0x00,
+	0xcf, 0x4c, 0x29, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0xce, 0x4c, 0x29, 0x56, 0x52,
+	0xe7, 0xe2, 0xf0, 0x2f, 0x48, 0x2d, 0x4a, 0x2c, 0xc9, 0x2f, 0x12, 0x92, 0xe6, 0xe2, 0x4c, 0x2c,
+	0x8e, 0x2f, 0x2e, 0x29, 0xca, 0xcc, 0x4b, 0x97, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0xe2, 0x48,
+	0x2c, 0x0e, 0x06, 0xf3, 0x95, 0x34, 0xb8, 0x38, 0x21, 0x0a, 0x33, 0xf3, 0xf3, 0xf0, 0xab, 0x54,
+	0xe2, 0x62, 0x0e, 0x0d, 0x0e, 0xc6, 0xaf, 0x46, 0x8d, 0x8b, 0x3d, 0xa4, 0x28, 0x31, 0x39, 0x3b,
+	0x15, 0xbf, 0xad, 0x4e, 0x9a, 0x51, 0xea, 0xe9, 0x99, 0x25, 0x19, 0xa5, 0x49, 0x7a, 0xc9, 0xf9,
+	0xb9, 0xfa, 0x89, 0x99, 0x45, 0xb9, 0x89, 0x05, 0xfa, 0x99, 0x79, 0x25, 0xa9, 0x45, 0x69, 0x89,
+	0xc9, 0xa9, 0xc5, 0xfa, 0xc5, 0x45, 0xc9, 0xfa, 0xe9, 0xf9, 0x20, 0x4f, 0x25, 0xb1, 0x81, 0x7d,
+	0x65, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x13, 0x40, 0x0a, 0x14, 0xe6, 0x00, 0x00, 0x00,
 }
