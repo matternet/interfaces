@@ -3,6 +3,9 @@ const grpc = require('grpc')
 const auth = require('../auth')
 const proto = require('../proto')
 
+const util = require('util')
+
+
 // Configure your env with your client id and client secret
 const API_ENDPOINT = process.env.API_ENDPOINT || 'api.airmap.com:443'
 const CLIENT_ID = process.env.CLIENT_ID
@@ -54,11 +57,9 @@ function runSimulation(client) {
     lng += 0.001
     lat += 0.001
 
-    console.log(lat)
-    console.log(lng)
-
     const report = buildReport(lat, lng)
-    client.write(report)
+    console.log(util.inspect(report, {showHidden: false, depth: null}))
+    client.write({report: report})
 
   }, 1000)
 }
@@ -89,9 +90,7 @@ function buildReport(lat, lng) {
         height: {
           value: 50
         },
-        reference: {
-          value: "REFERENCE_ELLIPSOID"
-        }
+        reference: "REFERENCE_ELLIPSOID"
       }
     }
   }
@@ -102,18 +101,11 @@ function buildReport(lat, lng) {
       {
         imei: {
           as_string: "994085654109130"
-        }
-      },
-      {
-        provider: {
-          as_string: "skyguide"
-        }
+        },
       }
     ],
-    details: {
-      spatial: {
-        position: position
-      }
+    spatial: {
+      position: position
     }
   }
 

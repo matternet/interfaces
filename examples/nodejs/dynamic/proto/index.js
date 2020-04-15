@@ -19,7 +19,6 @@ const packageDefinition = pl.loadSync(
         'units.proto'
     ],
     {
-        defaults: true,
         enums: String,
         keepCase: true,
         longs: String,

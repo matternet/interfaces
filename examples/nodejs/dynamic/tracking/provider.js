@@ -87,9 +87,7 @@ function buildUpdate(lat, lng) {
         height: {
           value: 50
         },
-        reference: {
-          value: "REFERENCE_ELLIPSOID"
-        }
+        reference: "REFERENCE_ELLIPSOID"
       }
     }
   }
