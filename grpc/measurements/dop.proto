@@ -4,6 +4,8 @@ syntax = "proto3";
 
 package measurements;
 
+option go_package = "github.com/airmap/interfaces/src/go/measurements";
+
 // DOP models Dilution of Precision
 message DOP {
 
