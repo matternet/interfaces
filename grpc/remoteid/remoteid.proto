@@ -1,3 +1,5 @@
+// Copyright 2018-2020 AirMap, Inc.  All rights reserved.
+
 syntax = "proto3";
 
 import "ids/ids.proto";
@@ -11,7 +13,7 @@ option go_package = "github.com/airmap/interfaces/src/go/remoteid";
 
 // RemoteID service exposes methods for the remote identification of aerial operations.
 service RemoteID {
-    // ALPHA: API subject to change
+    // EXPERIMENTAL: API subject to change
     // MonitorArea monitors a given area for active operations.
     rpc MonitorArea (MonitorAreaParameters) returns (stream MonitorAreaResponse);
 }
