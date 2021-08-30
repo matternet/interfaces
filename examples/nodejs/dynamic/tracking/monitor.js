@@ -3,6 +3,8 @@ const grpc = require('grpc')
 const auth = require('../auth')
 const proto = require('../proto')
 const fs = require('fs')
+const {spawn} = require('child_process')
+const nodeexe = 'node'
 
 // Configure your env with your client id and client secret
 const API_ENDPOINT = process.env.API_ENDPOINT || 'api.airmap.com:443'
@@ -11,8 +13,19 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET
 
 var items_interval
 var zeros_counter
+var collector
+var client
 
 function nop() {}  // Just a no-op callback
+
+function give_up() {
+  const sp = spawn(nodeexe, ['restart-monitor.js'], {
+    detached: true,
+    stdio: 'ignore'
+  })
+  sp.unref()
+  process.exit(1)
+}
 
 function pub_metric() {
   const d = new Date()
@@ -24,7 +37,7 @@ function pub_metric() {
     zeros_counter++
     if (zeros_counter == 5) {
       fs.appendFile('log.log', 'FATAL: 5 zero values in a row, restarting processor!\n', nop)
-      login()
+      give_up()
     }
   } else {
     zeros_counter = 0
@@ -36,12 +49,12 @@ function pub_metric() {
 function connectProcessor(token) {
 
   const tracking = proto.descriptors.tracking
-  const collector = new tracking.Collector(API_ENDPOINT, grpc.credentials.createSsl())
+  collector = new tracking.Collector(API_ENDPOINT, grpc.credentials.createSsl())
 
   const metadata = new grpc.Metadata()
   metadata.add("authorization", "Bearer " + token)
 
-  const client = collector.ConnectProcessor(metadata)
+  client = collector.ConnectProcessor(metadata)
 
   items_interval = 0
   zeros_counter = 0
@@ -62,7 +75,10 @@ function connectProcessor(token) {
 
   client.on('end', function () {
     fs.appendFile('log.log','client connection to collector ended\n',nop)
-    login()
+    // client.cancel()
+    // collector.$channel.close()
+    // login()
+    give_up()
   })
 
   client.on('error', function (error) {
@@ -70,7 +86,10 @@ function connectProcessor(token) {
     fs.appendFile('log.log',
       `hit error event from client, code:${error.code}, details:${error.details}\ntrying to restart\n`,
       nop)
-    login()
+    // client.cancel()
+    // collector.$channel.close()
+    // login()
+    give_up()
   })
 }
 
@@ -81,5 +100,9 @@ function login() {
     .then(connectProcessor)
     .catch(console.log)
 }
+
+
+// const timer = ms => new Promise( res => setTimeout(res, ms))
+// timer(10000).then(_ => login())
 
 login()
